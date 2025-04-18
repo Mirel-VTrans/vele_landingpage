@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "../context/ThemeContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,11 +15,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="de">
-      <body className={`${inter.className} transition-colors duration-300`}>
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+    <html lang="de" className="transition-colors duration-300">
+      <body className={`${inter.className} bg-white dark:bg-gray-900 text-gray-900 dark:text-white`}>
+        {children}
       </body>
     </html>
   );

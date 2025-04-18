@@ -6,16 +6,27 @@ interface ThemeContextType {
     toggleDarkMode: () => void;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextType>({
+    isDarkMode: false,
+    toggleDarkMode: () => { },
+});
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
+    const [mounted, setMounted] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     useEffect(() => {
-        const isDark = localStorage.getItem('darkMode') === 'true';
-        setIsDarkMode(isDark);
-        if (isDark) {
+        setMounted(true);
+        const savedTheme = localStorage.getItem('darkMode');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        const shouldBeDark = savedTheme ? savedTheme === 'true' : prefersDark;
+        setIsDarkMode(shouldBeDark);
+
+        if (shouldBeDark) {
             document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
         }
     }, []);
 
@@ -23,14 +34,20 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         setIsDarkMode((prev) => {
             const newValue = !prev;
             localStorage.setItem('darkMode', String(newValue));
+
             if (newValue) {
                 document.documentElement.classList.add('dark');
             } else {
                 document.documentElement.classList.remove('dark');
             }
+
             return newValue;
         });
     };
+
+    if (!mounted) {
+        return null;
+    }
 
     return (
         <ThemeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
@@ -41,8 +58,5 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
 export function useTheme() {
     const context = useContext(ThemeContext);
-    if (context === undefined) {
-        throw new Error('useTheme must be used within a ThemeProvider');
-    }
     return context;
 } 
