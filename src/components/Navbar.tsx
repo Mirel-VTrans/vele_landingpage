@@ -1,10 +1,9 @@
 'use client';
 import { Link } from 'react-scroll';
-import { FaHome, FaInfoCircle, FaHandshake, FaEnvelope, FaMoon, FaSun } from 'react-icons/fa';
-import { useTheme } from '../context/ThemeContext';
-import Image from 'next/image';
+import { FaHome, FaInfoCircle, FaCogs, FaHandshake, FaEnvelope } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
-// Interfața pentru elementele de navigare
+// Interface for navigation items
 interface NavItem {
     id: string;
     title: string;
@@ -12,61 +11,74 @@ interface NavItem {
 }
 
 const Navbar = () => {
-    const { isDarkMode, toggleDarkMode } = useTheme();
-
-    // Array-ul cu elementele de navigare și iconițele lor
+    // Array with navigation items and their icons
     const navItems: NavItem[] = [
-        { id: 'home', title: 'Acasă', icon: <FaHome className="text-xl" /> },
-        { id: 'about', title: 'Despre', icon: <FaInfoCircle className="text-xl" /> },
-        { id: 'services', title: 'Servicii & Parteneri', icon: <FaHandshake className="text-xl" /> },
+        { id: 'home', title: 'Home', icon: <FaHome className="text-xl" /> },
+        { id: 'about', title: 'About', icon: <FaInfoCircle className="text-xl" /> },
+        { id: 'services', title: 'Services', icon: <FaCogs className="text-xl" /> },
+        { id: 'partners', title: 'Partners', icon: <FaHandshake className="text-xl" /> },
         { id: 'contact', title: 'Contact', icon: <FaEnvelope className="text-xl" /> },
     ];
 
     return (
-        <nav className="fixed top-0 left-0 w-full bg-white dark:bg-gray-900 shadow-md z-50 transition-colors duration-300">
+        <motion.nav
+            initial={{ y: -100 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="fixed top-0 left-0 w-full backdrop-blur-md bg-black/30 z-50 transition-all duration-300"
+        >
             <div className="max-w-7xl mx-auto px-4">
-                <div className="flex justify-between items-center h-16">
-                    {/* Logo */}
-                    <div className="flex items-center">
-                        <span className="text-xl font-bold text-blue-600 dark:text-blue-400">
-                            Vele-Transporte
+                <div className="flex justify-between items-center h-20">
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="flex items-center"
+                    >
+                        <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                            Vele-Transport
                         </span>
-                    </div>
+                    </motion.div>
 
-                    {/* Navigation Links */}
                     <ul className="hidden md:flex space-x-8">
-                        {navItems.map((item) => (
-                            <li key={item.id}>
+                        {navItems.map((item, index) => (
+                            <motion.li
+                                key={item.id}
+                                initial={{ opacity: 0, y: -20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                            >
                                 <Link
                                     to={item.id}
                                     spy={true}
                                     smooth={true}
-                                    offset={-64}
+                                    offset={-80}
                                     duration={500}
-                                    className="flex flex-col items-center cursor-pointer hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors"
+                                    className="flex flex-col items-center cursor-pointer text-gray-300 hover:text-blue-400 transition-colors"
                                 >
-                                    {item.icon}
+                                    <motion.div
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.95 }}
+                                    >
+                                        {item.icon}
+                                    </motion.div>
                                     <span className="text-sm mt-1">{item.title}</span>
                                 </Link>
-                            </li>
+                            </motion.li>
                         ))}
                     </ul>
 
-                    {/* Dark Mode Toggle */}
-                    <button
-                        onClick={toggleDarkMode}
-                        className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                        aria-label="Toggle Dark Mode"
+                    {/* Mobile menu button */}
+                    <motion.button
+                        whileTap={{ scale: 0.95 }}
+                        className="md:hidden text-white p-2"
                     >
-                        {isDarkMode ? (
-                            <FaSun className="text-xl text-yellow-500" />
-                        ) : (
-                            <FaMoon className="text-xl text-gray-600" />
-                        )}
-                    </button>
+                        <div className="w-6 h-0.5 bg-current mb-1.5"></div>
+                        <div className="w-6 h-0.5 bg-current mb-1.5"></div>
+                        <div className="w-6 h-0.5 bg-current"></div>
+                    </motion.button>
                 </div>
             </div>
-        </nav>
+        </motion.nav>
     );
 };
 

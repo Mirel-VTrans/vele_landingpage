@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Vele-Transporte | Transport și Logistică în Germania",
-  description: "Servicii profesionale de transport și logistică în Germania, specializați în Baden-Württemberg. Partener de încredere pentru FedEx, DHL, și alte companii majore.",
+  title: "Vele-Transport | Professional Transport and Logistics in Germany",
+  description: "Professional transport and logistics services in Germany, specialized in Baden-Württemberg. Trusted partner for FedEx, DHL, and other major companies.",
 };
 
 export default function RootLayout({
@@ -15,8 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="de" className="transition-colors duration-300">
-      <body className={`${inter.className} bg-white dark:bg-gray-900 text-gray-900 dark:text-white`}>
+    <html lang="en" className="dark">
+      <body className={`${inter.className} bg-gradient-to-br from-gray-900 via-teal-900 to-blue-900 text-white min-h-screen`}>
         {children}
       </body>
     </html>

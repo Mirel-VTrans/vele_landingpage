@@ -1,7 +1,7 @@
 import Hero from '../components/Hero';
 import About from '../components/About';
 import Services from '../components/Services';
-import Features from '../components/Features';
+import Partners from '../components/Partners';
 import Contact from '../components/Contact';
 import ClientWrapper from '../components/ClientWrapper';
 import Navbar from '../components/Navbar';
@@ -15,7 +15,7 @@ export default function Home() {
           <Hero />
           <About />
           <Services />
-          <Features />
+          <Partners />
           <Contact />
         </main>
       </>
