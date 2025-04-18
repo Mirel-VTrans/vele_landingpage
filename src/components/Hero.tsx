@@ -1,132 +1,70 @@
 'use client';
-import { motion } from 'framer-motion';
-import { FaTruck, FaBox, FaShippingFast } from 'react-icons/fa';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import Link from 'next/link';
+import Image from 'next/image';
 
-const Hero = () => {
+export default function Hero() {
+    const { scrollY } = useScroll();
+
+    const y = useTransform(scrollY, [0, 500], [0, 200]);
+    const opacity = useTransform(scrollY, [0, 200], [1, 0]);
+
     return (
-        <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-            {/* Background effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-teal-900/20 to-blue-900/20 z-0" />
-
-            <div className="max-w-7xl mx-auto px-4 z-10">
-                <div className="grid md:grid-cols-2 gap-12 items-center">
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="space-y-8"
-                    >
-                        <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-400">
-                            Vele-Transport
-                        </h1>
-                        <p className="text-xl text-gray-300">
-                            Professional Transport and Logistics in Germany
-                        </p>
-
-                        <div className="flex flex-col md:flex-row gap-6 text-gray-300">
-                            <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                className="flex items-center gap-3"
-                            >
-                                <FaTruck className="text-2xl text-teal-400" />
-                                <span>40+ Trucks</span>
-                            </motion.div>
-                            <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                className="flex items-center gap-3"
-                            >
-                                <FaBox className="text-2xl text-blue-400" />
-                                <span>12 Vans (3.5t)</span>
-                            </motion.div>
-                        </div>
-
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="bg-gradient-to-r from-teal-500 to-blue-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-lg hover:shadow-teal-500/50 transition-all"
-                        >
-                            Contact Us
-                        </motion.button>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="relative hidden md:block"
-                    >
-                        <motion.div
-                            animate={{
-                                x: [-20, 20, -20],
-                                y: [0, -10, 0]
-                            }}
-                            transition={{
-                                duration: 6,
-                                repeat: Infinity,
-                                ease: "easeInOut"
-                            }}
-                            className="relative h-[400px] w-[400px] flex items-center justify-center"
-                        >
-                            <div className="relative">
-                                <FaShippingFast className="text-[200px] text-teal-400/80" />
-                                {/* Animated wheels effect */}
-                                <motion.div
-                                    animate={{ rotate: 360 }}
-                                    transition={{
-                                        duration: 2,
-                                        repeat: Infinity,
-                                        ease: "linear"
-                                    }}
-                                    className="absolute bottom-[30px] left-[40px] w-[30px] h-[30px] rounded-full border-4 border-blue-400/80"
-                                />
-                                <motion.div
-                                    animate={{ rotate: 360 }}
-                                    transition={{
-                                        duration: 2,
-                                        repeat: Infinity,
-                                        ease: "linear"
-                                    }}
-                                    className="absolute bottom-[30px] right-[40px] w-[30px] h-[30px] rounded-full border-4 border-blue-400/80"
-                                />
-                            </div>
-                        </motion.div>
-
-                        {/* Road effect */}
-                        <motion.div
-                            animate={{
-                                x: [-100, 100],
-                                opacity: [0.5, 0.8, 0.5]
-                            }}
-                            transition={{
-                                duration: 3,
-                                repeat: Infinity,
-                                ease: "linear"
-                            }}
-                            className="absolute bottom-[80px] left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-teal-400/50 to-transparent"
-                        />
-                    </motion.div>
-                </div>
-            </div>
-
-            {/* Animated particles */}
-            {[...Array(20)].map((_, i) => (
-                <motion.div
-                    key={i}
-                    className="absolute h-2 w-2 bg-teal-400/30 rounded-full"
-                    animate={{
-                        y: ['-100%', '100%'],
-                        x: Math.random() * 100 + '%',
-                        opacity: [0, 1, 0]
-                    }}
-                    transition={{
-                        duration: Math.random() * 3 + 2,
-                        repeat: Infinity,
-                        delay: Math.random() * 2
+        <section className="relative h-screen w-full overflow-hidden">
+            {/* Background Image with Blur */}
+            <div className="absolute inset-0 z-0">
+                <Image
+                    src="/images/hero-bg.jpg"
+                    alt="Transport and Logistics"
+                    fill
+                    className="object-cover object-center"
+                    quality={100}
+                    priority
+                    style={{
+                        filter: 'blur(2px)',
+                        transform: 'scale(1.1)'  // Prevents blur edges
                     }}
                 />
-            ))}
+            </div>
+
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-teal-900/50 to-gray-900/90 z-10" />
+
+            {/* Light effects */}
+            <div className="absolute -top-40 -left-40 w-80 h-80 bg-teal-500/30 rounded-full filter blur-3xl z-20" />
+            <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-blue-500/30 rounded-full filter blur-3xl z-20" />
+
+            {/* Content */}
+            <motion.div
+                className="relative z-30 flex flex-col items-center justify-center h-full px-4 text-center"
+                style={{ y, opacity }}
+            >
+                <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
+                    Transport & Logistics
+                    <span className="block text-teal-400">You Can Trust</span>
+                </h1>
+                <p className="max-w-2xl text-lg md:text-xl text-gray-300 mb-8">
+                    Complete transport and logistics solutions for your business.
+                    Experience, professionalism, and personalized services.
+                </p>
+                <Link
+                    href="/contact"
+                    className="group relative inline-flex items-center px-8 py-4 text-lg font-medium text-white bg-gradient-to-r from-teal-500 to-blue-600 rounded-full overflow-hidden transition-all duration-300 hover:scale-105"
+                >
+                    Contact Us
+                    <svg
+                        className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                </Link>
+            </motion.div>
+
+            {/* Animated border */}
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 via-blue-500 to-teal-500 animate-gradient-x z-30" />
         </section>
     );
-};
-
-export default Hero; 
+} 
