@@ -1,12 +1,15 @@
 'use client';
 import { motion } from 'framer-motion';
 import { FaCheckCircle, FaTruck, FaUsers, FaClock } from 'react-icons/fa';
+import { useLanguage } from '../context/LanguageContext';
 
 const About = () => {
+    const { t } = useLanguage();
+    
     const stats = [
-        { icon: <FaTruck />, value: '100+', label: 'Monthly Deliveries' },
-        { icon: <FaUsers />, value: '50+', label: 'Satisfied Clients' },
-        { icon: <FaClock />, value: '24/7', label: 'Support' }
+        { icon: <FaTruck />, value: '100+', label: t('about.stat1') },
+        { icon: <FaUsers />, value: '50+', label: t('about.stat2') },
+        { icon: <FaClock />, value: '24/7', label: t('about.stat3') }
     ];
 
     return (
@@ -26,7 +29,7 @@ const About = () => {
                         transition={{ duration: 0.6 }}
                         className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
                     >
-                        About Us
+                        {t('about.title')}
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -34,8 +37,7 @@ const About = () => {
                         transition={{ duration: 0.6, delay: 0.2 }}
                         className="text-gray-300 text-lg max-w-2xl mx-auto"
                     >
-                        We are dedicated to providing the best transport and logistics solutions
-                        for our clients in Germany, with special focus on the Baden-Württemberg region.
+                        {t('about.description')}
                     </motion.p>
                 </div>
 
@@ -67,12 +69,12 @@ const About = () => {
                         transition={{ duration: 0.8 }}
                         className="space-y-6"
                     >
-                        <h3 className="text-2xl font-semibold text-white">Why Choose Us?</h3>
+                        <h3 className="text-2xl font-semibold text-white">{t('about.whyChooseUs')}</h3>
                         {[
-                            'Proven transport experience',
-                            'Professional and dedicated team',
-                            'Complete coverage in Germany',
-                            'Real-time monitoring'
+                            t('about.reason1'),
+                            t('about.reason2'),
+                            t('about.reason3'),
+                            t('about.reason4')
                         ].map((text, index) => (
                             <motion.div
                                 key={index}
@@ -93,12 +95,12 @@ const About = () => {
                         transition={{ duration: 0.8 }}
                         className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 p-8 rounded-2xl backdrop-blur-sm"
                     >
-                        <h3 className="text-2xl font-semibold text-white mb-6">Certifications & Partnerships</h3>
+                        <h3 className="text-2xl font-semibold text-white mb-6">{t('about.certifications')}</h3>
                         <div className="space-y-4 text-gray-300">
-                            <p>• ISO 9001:2015 Certification</p>
-                            <p>• FedEx Partner</p>
-                            <p>• DHL Partner</p>
-                            <p>• Member of German Transport Association</p>
+                            <p>• {t('about.cert1')}</p>
+                            <p>• {t('about.cert2')}</p>
+                            <p>• {t('about.cert3')}</p>
+                            <p>• {t('about.cert4')}</p>
                         </div>
                     </motion.div>
                 </div>

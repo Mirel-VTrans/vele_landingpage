@@ -1,36 +1,39 @@
 'use client';
 import { motion } from 'framer-motion';
 import { FaTruck, FaRoute, FaWarehouse, FaShippingFast } from 'react-icons/fa';
+import { useLanguage } from '../context/LanguageContext';
 
 // Interfața pentru servicii
 interface Service {
-    icon: JSX.Element;
+    icon: React.ReactElement;
     title: string;
     description: string;
 }
 
 const Services = () => {
+    const { t } = useLanguage();
+    
     // Array-ul cu serviciile oferite
     const services: Service[] = [
         {
             icon: <FaTruck className="text-4xl text-teal-400" />,
-            title: "Express Delivery",
-            description: "Fast and reliable delivery services across Germany and neighboring countries."
+            title: t('services.service1.title'),
+            description: t('services.service1.description')
         },
         {
             icon: <FaRoute className="text-4xl text-blue-400" />,
-            title: "Route Optimization",
-            description: "Smart route planning and optimization for efficient transportation."
+            title: t('services.service2.title'),
+            description: t('services.service2.description')
         },
         {
             icon: <FaWarehouse className="text-4xl text-teal-400" />,
-            title: "Warehousing",
-            description: "Secure storage and inventory management solutions."
+            title: t('services.service3.title'),
+            description: t('services.service3.description')
         },
         {
             icon: <FaShippingFast className="text-4xl text-blue-400" />,
-            title: "Special Transport",
-            description: "Specialized transport services for unique cargo requirements."
+            title: t('services.service4.title'),
+            description: t('services.service4.description')
         }
     ];
 
@@ -52,7 +55,7 @@ const Services = () => {
                         transition={{ duration: 0.6 }}
                         className="text-4xl font-bold mb-6 bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent"
                     >
-                        Our Services
+                        {t('services.title')}
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -60,7 +63,7 @@ const Services = () => {
                         transition={{ duration: 0.6, delay: 0.2 }}
                         className="text-gray-300 text-lg max-w-2xl mx-auto"
                     >
-                        Professional logistics solutions tailored to your needs
+                        {t('services.description')}
                     </motion.p>
                 </div>
 

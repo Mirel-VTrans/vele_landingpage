@@ -1,55 +1,58 @@
 'use client';
 import { motion } from 'framer-motion';
 import { FaHandshake, FaTruck, FaShieldAlt, FaAward, FaGlobe, FaBox, FaIndustry, FaWarehouse } from 'react-icons/fa';
+import { useLanguage } from '../context/LanguageContext';
 
 const Partners = () => {
+    const { t } = useLanguage();
+    
     const partners = [
         {
-            name: 'FedEx',
-            role: 'Strategic Partner',
-            description: 'Global delivery network and express shipping solutions',
+            name: t('partners.partner1.name'),
+            role: t('partners.partner1.role'),
+            description: t('partners.partner1.description'),
             icon: <FaTruck className="text-4xl" />
         },
         {
-            name: 'DHL',
-            role: 'Logistics Partner',
-            description: 'International logistics and courier services',
+            name: t('partners.partner2.name'),
+            role: t('partners.partner2.role'),
+            description: t('partners.partner2.description'),
             icon: <FaGlobe className="text-4xl" />
         },
         {
-            name: 'Trans-o-Flex',
-            role: 'Express Partner',
-            description: 'Temperature-controlled logistics specialist',
+            name: t('partners.partner3.name'),
+            role: t('partners.partner3.role'),
+            description: t('partners.partner3.description'),
             icon: <FaBox className="text-4xl" />
         },
         {
-            name: 'Swiss Post',
-            role: 'International Partner',
-            description: 'Cross-border logistics solutions',
+            name: t('partners.partner4.name'),
+            role: t('partners.partner4.role'),
+            description: t('partners.partner4.description'),
             icon: <FaHandshake className="text-4xl" />
         },
         {
-            name: 'Gebrüder Weiss',
-            role: 'Transport Partner',
-            description: 'Full-service logistics provider',
+            name: t('partners.partner5.name'),
+            role: t('partners.partner5.role'),
+            description: t('partners.partner5.description'),
             icon: <FaIndustry className="text-4xl" />
         },
         {
-            name: 'Noerpel',
-            role: 'Regional Partner',
-            description: 'Comprehensive logistics services in Germany',
+            name: t('partners.partner6.name'),
+            role: t('partners.partner6.role'),
+            description: t('partners.partner6.description'),
             icon: <FaWarehouse className="text-4xl" />
         },
         {
-            name: 'German Transport Association',
-            role: 'Industry Member',
-            description: 'Active member of the leading transport association',
+            name: t('partners.partner7.name'),
+            role: t('partners.partner7.role'),
+            description: t('partners.partner7.description'),
             icon: <FaShieldAlt className="text-4xl" />
         },
         {
-            name: 'Quality Standards Institute',
-            role: 'Certification Partner',
-            description: 'ISO 9001:2015 certified operations',
+            name: t('partners.partner8.name'),
+            role: t('partners.partner8.role'),
+            description: t('partners.partner8.description'),
             icon: <FaAward className="text-4xl" />
         }
     ];
@@ -71,7 +74,7 @@ const Partners = () => {
                         transition={{ duration: 0.6 }}
                         className="text-4xl font-bold mb-6 bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent"
                     >
-                        Our Partners
+                        {t('partners.title')}
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -79,7 +82,7 @@ const Partners = () => {
                         transition={{ duration: 0.6, delay: 0.2 }}
                         className="text-gray-300 text-lg max-w-2xl mx-auto"
                     >
-                        Working together with industry leaders to provide exceptional service
+                        {t('partners.description')}
                     </motion.p>
                 </div>
 
@@ -113,14 +116,14 @@ const Partners = () => {
                     className="mt-16 text-center"
                 >
                     <p className="text-gray-300 text-lg">
-                        Interested in becoming a partner?
+                        {t('partners.becomePartner')}
                     </p>
                     <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         className="mt-4 bg-gradient-to-r from-teal-500 to-blue-500 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-teal-500/50 transition-all"
                     >
-                        Partner With Us
+                        {t('partners.partnerButton')}
                     </motion.button>
                 </motion.div>
             </motion.div>

@@ -2,6 +2,7 @@
 import { Link } from 'react-scroll';
 import { FaHome, FaInfoCircle, FaCogs, FaHandshake, FaEnvelope } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 // Interface for navigation items
 interface NavItem {
@@ -11,13 +12,15 @@ interface NavItem {
 }
 
 const Navbar = () => {
+    const { t } = useLanguage();
+    
     // Array with navigation items and their icons
     const navItems: NavItem[] = [
-        { id: 'home', title: 'Home', icon: <FaHome className="text-xl" /> },
-        { id: 'about', title: 'About', icon: <FaInfoCircle className="text-xl" /> },
-        { id: 'services', title: 'Services', icon: <FaCogs className="text-xl" /> },
-        { id: 'partners', title: 'Partners', icon: <FaHandshake className="text-xl" /> },
-        { id: 'contact', title: 'Contact', icon: <FaEnvelope className="text-xl" /> },
+        { id: 'home', title: t('navbar.home'), icon: <FaHome className="text-xl" /> },
+        { id: 'about', title: t('navbar.about'), icon: <FaInfoCircle className="text-xl" /> },
+        { id: 'services', title: t('navbar.services'), icon: <FaCogs className="text-xl" /> },
+        { id: 'partners', title: t('navbar.partners'), icon: <FaHandshake className="text-xl" /> },
+        { id: 'contact', title: t('navbar.contact'), icon: <FaEnvelope className="text-xl" /> },
     ];
 
     return (
@@ -35,7 +38,7 @@ const Navbar = () => {
                         className="flex items-center"
                     >
                         <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                            Vele-Transport
+                            {t('navbar.brand')}
                         </span>
                     </motion.div>
 

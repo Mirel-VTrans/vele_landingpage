@@ -2,9 +2,11 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Hero() {
     const { scrollY } = useScroll();
+    const { language, toggleLanguage, t } = useLanguage();
 
     const y = useTransform(scrollY, [0, 500], [0, 200]);
     const opacity = useTransform(scrollY, [0, 200], [1, 0]);
@@ -29,6 +31,18 @@ export default function Hero() {
 
             {/* Gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-teal-900/50 to-gray-900/90 z-10" />
+            
+            {/* Language Switch Button */}
+            <div className="absolute top-6 right-6 z-50">
+                <motion.button
+                    onClick={toggleLanguage}
+                    className="flex items-center justify-center w-16 h-8 bg-gray-800/70 backdrop-blur-sm text-white rounded-full border border-gray-600 hover:bg-gray-700/80 transition-all duration-300"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                >
+                    {language === 'en' ? 'EN' : 'DE'}
+                </motion.button>
+            </div>
 
             {/* Light effects */}
             <div className="absolute -top-40 -left-40 w-80 h-80 bg-teal-500/30 rounded-full filter blur-3xl z-20" />
@@ -40,18 +54,17 @@ export default function Hero() {
                 style={{ y, opacity }}
             >
                 <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
-                    Transport & Logistics
-                    <span className="block text-teal-400">You Can Trust</span>
+                    {t('hero.title')}
+                    <span className="block text-teal-400">{t('hero.subtitle')}</span>
                 </h1>
                 <p className="max-w-2xl text-lg md:text-xl text-gray-300 mb-8">
-                    Complete transport and logistics solutions for your business.
-                    Experience, professionalism, and personalized services.
+                    {t('hero.description')}
                 </p>
                 <Link
                     href="/contact"
                     className="group relative inline-flex items-center px-8 py-4 text-lg font-medium text-white bg-gradient-to-r from-teal-500 to-blue-600 rounded-full overflow-hidden transition-all duration-300 hover:scale-105"
                 >
-                    Contact Us
+                    {t('hero.contactButton')}
                     <svg
                         className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
                         fill="none"

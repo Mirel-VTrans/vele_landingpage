@@ -2,8 +2,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { useLanguage } from '../context/LanguageContext';
 
 const Contact = () => {
+    const { t } = useLanguage();
+    
     // State pentru formularul de contact
     const [formData, setFormData] = useState({
         name: '',
@@ -32,18 +35,18 @@ const Contact = () => {
     const contactInfo = [
         {
             icon: <FaEnvelope className="text-2xl" />,
-            title: 'Email',
-            content: 'contact@vele-transport.de'
+            title: t('contact.email'),
+            content: ['transvele@yahoo.com', 'info@transportevele.de']
         },
         {
             icon: <FaPhone className="text-2xl" />,
-            title: 'Phone',
-            content: '+49 123 456 789'
+            title: t('contact.phone'),
+            content: ['+49 172 6348866']
         },
         {
             icon: <FaMapMarkerAlt className="text-2xl" />,
-            title: 'Address',
-            content: 'Stuttgart, Baden-Württemberg, Germany'
+            title: t('contact.address'),
+            content: ['Schulstraße 19/2, 78647 Trossingen - Baden-Württemberg, Germany']
         }
     ];
 
@@ -65,10 +68,10 @@ const Contact = () => {
                     className="text-center mb-16"
                 >
                     <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent">
-                        Contact Us
+                        {t('contact.title')}
                     </h2>
                     <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-                        We're here to help. Contact us for any questions or requests.
+                        {t('contact.description')}
                     </p>
                 </motion.div>
 
@@ -79,7 +82,7 @@ const Contact = () => {
                         transition={{ duration: 0.8 }}
                         className="space-y-8"
                     >
-                        <h3 className="text-2xl font-semibold text-white mb-8">Contact Information</h3>
+                        <h3 className="text-2xl font-semibold text-white mb-8">{t('contact.info')}</h3>
 
                         {contactInfo.map((info, index) => (
                             <motion.div
@@ -94,7 +97,9 @@ const Contact = () => {
                                 </div>
                                 <div>
                                     <h4 className="font-semibold text-white">{info.title}</h4>
-                                    <p className="text-gray-300">{info.content}</p>
+                                    {info.content.map((item, idx) => (
+                                        <p key={idx} className="text-gray-300">{item}</p>
+                                    ))}
                                 </div>
                             </motion.div>
                         ))}
@@ -108,7 +113,7 @@ const Contact = () => {
                         <form onSubmit={handleSubmit} className="space-y-6 bg-gray-800/30 backdrop-blur-sm p-8 rounded-2xl border border-gray-700/30">
                             <div>
                                 <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                                    Name
+                                    {t('contact.form.name')}
                                 </label>
                                 <motion.input
                                     whileFocus={{ scale: 1.02 }}
@@ -124,7 +129,7 @@ const Contact = () => {
 
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                                    Email
+                                    {t('contact.form.email')}
                                 </label>
                                 <motion.input
                                     whileFocus={{ scale: 1.02 }}
@@ -140,7 +145,7 @@ const Contact = () => {
 
                             <div>
                                 <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                                    Message
+                                    {t('contact.form.message')}
                                 </label>
                                 <motion.textarea
                                     whileFocus={{ scale: 1.02 }}
@@ -160,7 +165,7 @@ const Contact = () => {
                                 type="submit"
                                 className="w-full bg-gradient-to-r from-teal-500 to-blue-500 text-white py-3 px-6 rounded-lg font-semibold hover:shadow-lg hover:shadow-teal-500/50 transition-all"
                             >
-                                Send Message
+                                {t('contact.form.submit')}
                             </motion.button>
                         </form>
                     </motion.div>
